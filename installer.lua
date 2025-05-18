@@ -22,28 +22,26 @@ local includes = getIncludes()
 if not includes then
     error("Failed to fetch include list")
 end
--- local function downloadFile(url, path, name, size, currentFile, totalFiles)
---     print("Downloading " .. name..(size > 0 and " (" .. size/1000 .. " kb)" or "") .. " (" .. currentFile .. "/" .. totalFiles .. ")")
---     local request = http.get(url)
---     if request then
---         local file = fs.open(path, "w")
---         file.write(request.readAll())
---         file.close()
---         request.close()
---     else
---         error("Failed to download " .. name)
---     end
--- end
--- local totalFiles = 0
--- for _, category in pairs(config.categories) do
---     totalFiles = totalFiles + get(category.files)
--- end
--- local currentFile = 0
--- for categoryName, category in pairs(config.categories) do
---     for fileName, fileInfo in pairs(category.files) do
---         downloadFile(devPath .. fileInfo.path, fs.combine(args[2] or "basalt", fileInfo.path), fileName, fileInfo.size or 0, currentFile + 1, totalFiles)
---         currentFile = currentFile + 1
---     end
--- end
--- print("Dev installation complete!")
--- return
+local function downloadFile(url, path, name, size, currentFile, totalFiles)
+    print("Downloading " .. name..(size > 0 and " (" .. size/1000 .. " kb)" or "") .. " (" .. currentFile .. "/" .. totalFiles .. ")")
+    local request = http.get(url)
+    if request then
+        local file = fs.open(path, "w")
+        file.write(request.readAll())
+        file.close()
+        request.close()
+    else
+        error("Failed to download " .. name)
+    end
+end
+local totalFiles = 0
+for _, category in pairs(config.categories) do
+    totalFiles = totalFiles + get(category.files)
+end
+local currentFile = 0
+for fileName in includes do
+    downloadFile(devPath .. fileName, fs.combine("cc-phone", fileName), fileName, 0, currentFile + 1, #includes)
+    currentFile = currentFile + 1
+end
+print("Dev installation complete!")
+return
