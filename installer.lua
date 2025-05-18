@@ -1,5 +1,5 @@
 local releasePath = ""
-local devPath = "https://raw.githubusercontent.com/AbdullahRasheed/cc-phone/refs/heads/main/installer.lua"
+local devPath = "https://raw.githubusercontent.com/AbdullahRasheed/cc-phone/refs/heads/main/"
 local includePath = "https://raw.githubusercontent.com/AbdullahRasheed/cc-phone/refs/heads/main/include"
 local args = {...}
 
