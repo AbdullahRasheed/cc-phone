@@ -7,8 +7,10 @@ local function getIncludes()
     local includes = {}
     local request = http.get(includePath)
     if request then
-        for line in request:lines() do
+        local line = request.readLine()
+        while line do
             print(line)
+            line = request.readLine()
         end
         request.close()
     else
