@@ -1,6 +1,6 @@
 local releasePath = ""
-local devPath = "https://github.com/AbdullahRasheed/cc-phone"
-local includePath = "https://github.com/AbdullahRasheed/cc-phone/include"
+local devPath = "https://raw.githubusercontent.com/AbdullahRasheed/cc-phone/refs/heads/main/installer.lua"
+local includePath = "https://raw.githubusercontent.com/AbdullahRasheed/cc-phone/refs/heads/main/include"
 local args = {...}
 
 local function getIncludes()
