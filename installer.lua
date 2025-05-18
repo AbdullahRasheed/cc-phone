@@ -9,7 +9,7 @@ local function getIncludes()
     if request then
         local line = request.readLine()
         while line do
-            print(line)
+            table.insert(includes, line)
             line = request.readLine()
         end
         request.close()
