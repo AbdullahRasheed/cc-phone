@@ -24,6 +24,7 @@ local includes = getIncludes()
 if not includes then
     error("Failed to fetch include list")
 end
+
 local function downloadFile(url, path, name, size, currentFile, totalFiles)
     print("Downloading " .. name..(size > 0 and " (" .. size/1000 .. " kb)" or "") .. " (" .. currentFile .. "/" .. totalFiles .. ")")
     local request = http.get(url)
@@ -36,10 +37,7 @@ local function downloadFile(url, path, name, size, currentFile, totalFiles)
         error("Failed to download " .. name)
     end
 end
-local totalFiles = 0
-for _, category in pairs(config.categories) do
-    totalFiles = totalFiles + get(category.files)
-end
+
 local currentFile = 0
 for fileName in includes do
     downloadFile(devPath .. fileName, fs.combine("cc-phone", fileName), fileName, 0, currentFile + 1, #includes)
