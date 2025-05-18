@@ -5,16 +5,14 @@ local bootInfo = {
     fresh = true
 }
 
--- Here we know that bootInfo is a table, so this call is safe.
-bootInfo = persist.load_default("data/boot_info.lua", bootInfo)
-
 local main = basalt.getMainFrame()
 local font = main:addBigFont()
                 :setText("Welcome!")
-                :setPosition("{parent.width}/2","{parent.height}/2")
+                :setPosition("{parent.width / 2}","{parent.height / 2}")
+                :setBackground(colors.white)
+
+local nameInput = main:addInput()
+                    :setPlaceholder("Enter your name")
+                    :setPattern("^[A-Za-z0-9 ]{0,32}$")
 
 basalt.run()
-
-font:animate()
-    :fadeText("text", "Welcome!", 2)
-    :start()
