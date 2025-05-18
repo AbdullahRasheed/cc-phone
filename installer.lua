@@ -39,7 +39,7 @@ local function downloadFile(url, path, name, size, currentFile, totalFiles)
 end
 
 local currentFile = 0
-for fileName in includes do
+for _, fileName in ipairs(includes) do
     downloadFile(devPath .. fileName, fs.combine("cc-phone", fileName), fileName, 0, currentFile + 1, #includes)
     currentFile = currentFile + 1
 end
