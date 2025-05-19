@@ -1,24 +1,21 @@
 local persist = require("persistence")
 local basalt = require("basalt")
 
-local mds = {}
-
-local function loadMetadata(filepath)
-    local meta = persist.load_table(filepath)
-    table.insert(mds, meta)
-end
-
-for _, file in ipairs(fs.list("data/apps")) do
-    loadMetadata("data/apps/" .. file .. "/metadata.lua")
+local defaultIco = loadfile("./ico_default")
+if defaultIco == nil then
+    error("Could not load default icon")
 end
 
 local main = basalt.getMainFrame()
 
-local function render()
-    for i, meta in ipairs(mds) do
-        main:addButton()
-            :setText(meta.name)
-            :setWidth("{math.floor(parent.width / 3)}")
-            :setPosition((i % 3) * math.floor(main.width / 3), math.floor(i / 3) * math.floor(main.height / 4))
-    end
+for i, file in ipairs(fs.list("data/apps")) do
+    local filepath = "data/apps/" .. file .. "/metadata.lua"
+    local meta = persist.load_table(filepath)
+
+    local ico = loadfile(fs.combine("data/apps/" .. file, meta["ico"]))
+    main:addImage({bimg = ico or defaultIco, autoResize = true})
+        :setSize(math.floor(main.width / 3), math.floor(main.height / 3))
+        :setPosition(((i-1) % 3) * math.floor(main.width / 3), math.floor((i-1) / 3) * math.floor(main.height / 4) + 1)
 end
+
+basalt.run()
