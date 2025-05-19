@@ -5,7 +5,7 @@ local args = {...}
 
 local function getIncludes()
     local includes = {}
-    local request = http.get(includePath)
+    local request = http.get(includePath, {"Cache-Control: private, no-store, max-age=0"})
     if request then
         local line = request.readLine()
         while line do
