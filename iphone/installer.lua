@@ -1,6 +1,6 @@
 local releasePath = ""
-local devPath = "https://raw.githubusercontent.com/AbdullahRasheed/cc-phone/refs/heads/main/"
-local includePath = "https://raw.githubusercontent.com/AbdullahRasheed/cc-phone/refs/heads/main/include"
+local devPath = "https://raw.githubusercontent.com/AbdullahRasheed/cc-phone/refs/heads/main/iphone"
+local includePath = "https://raw.githubusercontent.com/AbdullahRasheed/cc-phone/refs/heads/main/iphone/include"
 local args = {...}
 
 local function getIncludes()
