@@ -27,6 +27,7 @@ if not includes then
 end
 
 local function downloadFile(url, path, name, size, currentFile, totalFiles)
+    print("Attempting to download at " .. path)
     print("Downloading " .. name..(size > 0 and " (" .. size/1000 .. " kb)" or "") .. " (" .. currentFile .. "/" .. totalFiles .. ")")
     local request = http.get(url)
     if request then
