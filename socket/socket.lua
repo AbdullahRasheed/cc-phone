@@ -25,7 +25,7 @@ function Socket:start(handler)
             -- Either ignore or send reply
             -- And maybe log
         else
-            if packet["recipient_id"] == os.getComputerId() then
+            if packet["recipient_id"] == os.getComputerID() then
                 -- Maybe check if packet["message"] is nil first
                 handler(distance, packet["message"])
             end

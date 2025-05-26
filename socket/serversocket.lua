@@ -18,7 +18,7 @@ function ServerSocket:sendTo(senderId, msg)
 end
 
 function ServerSocket:broadcast(msg)
-    local packet = { message: msg }
+    local packet = { message = msg }
     for _, id in ipairs(self.clients) do
         packet["recipient_id"] = id
         self.modem.transmit(self.port, self.port, packet)
