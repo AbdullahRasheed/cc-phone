@@ -10,6 +10,7 @@ local function getIncludes()
         local line = request.readLine()
         while line do
             table.insert(includes, line)
+            print("Added " .. line .. " to includes.")
             line = request.readLine()
         end
         request.close()
