@@ -8,10 +8,12 @@ function ServerSocket:new(modem, port)
     obj.modem = modem
 
     modem.open(port)
+
+    return obj
 end
 
 function ServerSocket:sendTo(senderId, msg)
-    local packet = { recipient_id: senderId, message: msg }
+    local packet = { recipient_id = senderId, message = msg }
     self.modem.transmit(self.port, self.port, packet)
 end
 
@@ -24,12 +26,11 @@ function ServerSocket:broadcast(msg)
 end
 
 function ServerSocket:start(handler)
-    local event, side, channel, replyChannel, message, distance
+    local event, side, channel, replyChannel, packet, distance
     while true do
-        event, side, channel, replyChannel, message, distance = os.pullEvent("modem_message")
-        local packet = textutils.unserialize(message)
+        event, side, channel, replyChannel, packet, distance = os.pullEvent("modem_message")
 
-        if packet == nil then
+        if packet == nil or type(packet) ~= "table" then
             -- Either ignore or send reply
             -- And maybe log
         else

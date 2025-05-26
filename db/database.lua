@@ -5,6 +5,8 @@ function Database:new(name, path)
     local obj = setmetatable({}, self)
     obj.name = name
     obj.path = path
+
+    return obj
 end
 
 function Database:getTable(name)
