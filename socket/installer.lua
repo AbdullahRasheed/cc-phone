@@ -3,6 +3,8 @@ local devPath = "https://raw.githubusercontent.com/AbdullahRasheed/cc-phone/refs
 local includePath = "https://raw.githubusercontent.com/AbdullahRasheed/cc-phone/refs/heads/main/socket/include"
 local args = {...}
 
+
+
 local function getIncludes()
     local includes = {}
     local request = http.get(includePath, {"Cache-Control: private, no-store, max-age=0"})
@@ -42,7 +44,7 @@ end
 
 local currentFile = 0
 for _, fileName in ipairs(includes) do
-    downloadFile(devPath .. fileName, fs.combine(fs.getDir(shell.getRunningProgram()), fileName), fileName, 0, currentFile + 1, #includes)
+    downloadFile(devPath .. fileName, fs.combine("socket", fileName), fileName, 0, currentFile + 1, #includes)
     currentFile = currentFile + 1
 end
 
