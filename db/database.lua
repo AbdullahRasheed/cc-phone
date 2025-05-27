@@ -10,6 +10,8 @@ function Database:new(name, path)
 end
 
 function Database:getTable(name)
+    if name == nil then return nil end
+
     local tblFile = fs.open(fs.combine(self.path, name))
     if tblFile == nil then
         return nil
