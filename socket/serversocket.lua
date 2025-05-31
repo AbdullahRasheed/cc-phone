@@ -17,6 +17,11 @@ function ServerSocket:sendTo(senderId, msg)
     self.modem.transmit(self.port, self.port, packet)
 end
 
+function ServerSocket:replyTo(senderId, respId, msg)
+    local packet = { recipient_id = senderId, resp_id = respId, message = msg }
+    self.modem.transmit(self.port, self.port, packet)
+end
+
 function ServerSocket:broadcast(msg)
     local packet = { message = msg }
     for _, id in ipairs(self.clients) do
@@ -34,9 +39,13 @@ function ServerSocket:start(handler)
             -- Either ignore or send reply
             -- And maybe log
         else
+            -- Check that this is a client-to-server message
             if packet["recipient_id"] == nil and packet["sender_id"] ~= nil then
                 -- Maybe check if packet["message"] is nil first
-                handler(packet["sender_id"], distance, packet["message"])
+                handler(packet["sender_id"], distance, packet["message"], 
+                function(msg) 
+                    self:replyTo(packet["sender_id"], packet["resp_id"], msg) 
+                end)
             end
         end
     end
